@@ -1,0 +1,18 @@
+{
+  "name": "skvopen",
+  "description": "skvopen",
+  "main": "index.js",
+  "license": "ISC",
+  "homepage": "https://github.com/christoferjh/skvopen",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular2-build": "^2.0.0-alpha.34"
+  }
+}
