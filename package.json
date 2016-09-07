@@ -5,19 +5,20 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "express": "^4.14.0",
-    "mongodb": "^2.2.9",
-    "mongoose": "^4.6.0",
-    "karma": "^1.2.0",
     "bower": "^1.7.9",
+    "express": "^4.14.0",
     "jasmine-core": "^2.5.0",
+    "karma": "^1.2.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "^1.0.2",
+    "karma-junit-reporter": "^1.1.0",
     "karma-requirejs": "^1.0.0",
+    "mongodb": "^2.2.9",
+    "mongoose": "^4.6.0",
     "requirejs": "^2.3.1"
   },
   "scripts": {
-    "test": "karma start",
+    "test": "karma",
     "bower": "bower",
     "postinstall": "bower install"
   },
