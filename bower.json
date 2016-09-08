@@ -12,7 +12,5 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "angular2-build": "^2.0.0-alpha.34"
-  }
+  "dependencies": {}
 }
