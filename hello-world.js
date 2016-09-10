@@ -1,3 +1,4 @@
+var fs = require("fs");
 //var envs = require('envs');
 // Load the http module to create an http server.
 var http = require('http');
@@ -12,7 +13,8 @@ var port = prodmodenr + appnr;
 var server = http.createServer(function (request, response) {
   response.writeHead(200, {"Content-Type": "text/plain"});
 var url = request.url;
-  response.end("Hello " + url + " World\nThis is prodmode "+prodmode + "("+prodmodenr+") and appnr "+appnr);
+var data = fs.readFileSync('README.md');
+  response.end("Hello " + url + " World\nThis is prodmode "+prodmode + "("+prodmodenr+") and appnr "+appnr + " README.ms is "+data.toString());
 });
 
 
