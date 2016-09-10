@@ -3,7 +3,7 @@ var fs = require("fs");
 // Load the http module to create an http server.
 var http = require('http');
 var prodmodenr = process.env.PRODMODENR;
-var prodmode = process.env.PRODMODENR;
+var prodmode = process.env.PRODMODE;
 var appnr = process.env.APPNR
 var port = prodmodenr + appnr;
 
