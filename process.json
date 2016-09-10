@@ -1,0 +1,11 @@
+{
+  apps : [{
+    name        : [process.env.PRODMODE,"-","hello-world"].join(''),
+    script      : "./hello-world.js",
+    watch       : false,
+    env: {
+		"PRODMODENR": process.env.PRODMODENR,
+		"APPNR": "000"
+    }
+  }]
+}
