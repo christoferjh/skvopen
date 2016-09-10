@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} skv\-prod\.chjh\.eu$
+RewriteRule "([0-9]{3})/(.*)" "http://localhost:21$1/$2" [P]
+RewriteCond %{HTTP_HOST} skv\-dev\.chjh\.eu$
+RewriteRule "([0-9]{3})/(.*)" "http://localhost:20$1/$2" [P]
+
+
+
