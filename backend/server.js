@@ -15,7 +15,7 @@ require('./routes')(app);
 hamburgarmodulen = require('./hamburgare')(app);
 
 
-var skvopenEndpoint = 'http://localhost:23000/skv-api/monad/';
+var skvopenEndpoint = "http://localhost:"+prodmodenr+"002/skv-api/monad/";
 var hamburgareEndpoint = 'http://localhost:' + port;
 require('./livskvalitet')(app, skvopenEndpoint, hamburgarmodulen);
 
