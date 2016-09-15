@@ -1,7 +1,7 @@
 angular.module('skvopenApp', [])
 
 .constant('skvopenConfig', {url: 'http://localhost:21001/livskvalitet'})
-.controller('skvopenController', function($scope, skvopenService) {
+.controller('skvopenController', function($scope, skvopenService, $timeout) {
 
     var map, kmlLayer;
 
@@ -53,14 +53,11 @@ angular.module('skvopenApp', [])
 
         skvopenService.beraknaHamburgare(nuvarandekommun, flyttkommun, lon, function(response) {
 
-            var antalHamburgare = response.data.antalvaror.hamburgare.antal;
-            var isBetter = response.data.isBetter;
+            var hamburgare = response.data.antalvaror.hamburgare.antal;
 
-            if (!isBetter)
-            {
-                antalHamburgare = '-' + antalHamburgare;
-            }
-            $scope.hamburgarePerKommun[flyttkommun] = 1; 
+            $timeout(function() {
+                $scope.hamburgarePerKommun[flyttkommun] = hamburgare; 
+            }, 0);
         });
     };
 
