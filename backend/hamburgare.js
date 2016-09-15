@@ -9,7 +9,7 @@ module.exports = function(app) {
         
         var resObj = {};
         resObj["omvandlat"] = "true";
-        resObj.vara = vara;
+        //resObj.vara = vara;
         resObj.kr = kr;
         resObj.antalvaror = skapaFullstandingOmvandling(kr);
         
