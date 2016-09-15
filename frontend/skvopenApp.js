@@ -1,6 +1,6 @@
 angular.module('skvopenApp', [])
 
-.constant('skvopenConfig', {url: 'http://skv-dev.chjh.eu/001/livskvalitet'})
+.constant('skvopenConfig', {url: 'http://localhost:21001/livskvalitet'})
 .controller('skvopenController', function($scope, skvopenService) {
 
     var map, kmlLayer;
@@ -33,7 +33,7 @@ angular.module('skvopenApp', [])
             }
             else
             {
-                $scope.flyttKommun = kommun;
+                $scope.flyttkommun = kommun;
                 $scope.skicka();
             }
             });
@@ -48,14 +48,19 @@ angular.module('skvopenApp', [])
     $scope.skicka = function() {
 
         var nuvarandekommun = $scope.nuvarandekommun;
-        var flyttKommun = $scope.flyttKommun;
+        var flyttkommun = $scope.flyttkommun;
         var lon = $scope.lon;
 
-        skvopenService.beraknaHamburgare(nuvarandekommun, flyttKommun, lon, function(response) {
-            $scope.$apply(function() {
-                console.log(response);
-                $scope.hamburgarePerKommun[flyttKommun] = response.data; 
-            });
+        skvopenService.beraknaHamburgare(nuvarandekommun, flyttkommun, lon, function(response) {
+
+            var antalHamburgare = response.data.antalvaror.hamburgare.antal;
+            var isBetter = response.data.isBetter;
+
+            if (!isBetter)
+            {
+                antalHamburgare = '-' + antalHamburgare;
+            }
+            $scope.hamburgarePerKommun[flyttkommun] = 1; 
         });
     };
 
@@ -67,10 +72,10 @@ angular.module('skvopenApp', [])
 
 .factory('skvopenService', function($http, skvopenConfig) {
     return {
-        beraknaHamburgare: function(nuvarandekommun, flyttKommun, lon, callback) {
+        beraknaHamburgare: function(nuvarandekommun, flyttkommun, lon, callback) {
 
             var url = skvopenConfig.url;
-            var config = { params: { nuvarandekommun: nuvarandekommun.toUpperCase(), flyttKommun: flyttKommun.toUpperCase(), lon: lon }};
+            var config = { params: { nuvarandekommun: nuvarandekommun.toUpperCase(), flyttkommun: flyttkommun.toUpperCase(), lon: lon }};
 
             $http.get(url, config).then(callback, function() {
                 console.log('fel');
