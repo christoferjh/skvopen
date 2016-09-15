@@ -1,4 +1,4 @@
-module.exports = function(app, skvopenEndpoint, hamburgaremodulen) {
+module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 
     var unirest = require('unirest');
     app.get('/livskvalitet', function(req, res) {
