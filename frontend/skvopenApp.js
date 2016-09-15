@@ -1,12 +1,11 @@
 angular.module('skvopenApp', [])
 
-.constant('skvopenConfig', {url: 'http://asdf'})
-
-.controller('skvopenController', function($scope, skvopenService, $q) {
+.constant('skvopenConfig', {url: 'http://skv-dev.chjh.eu/001/livskvalitet'})
+.controller('skvopenController', function($scope, skvopenService) {
 
     var map, kmlLayer;
 
-    $scope.hemkommun = '';
+    $scope.nuvarandekommun = '';
     $scope.hamburgarePerKommun = {};
 
     $scope.initMap = function() {
@@ -28,13 +27,13 @@ angular.module('skvopenApp', [])
 
             $scope.$apply(function() { 
 
-            if ($scope.hemkommun === '')
+            if ($scope.nuvarandekommun === '')
             {
-                $scope.hemkommun = kommun;
+                $scope.nuvarandekommun = kommun;
             }
             else
             {
-                $scope.tillKommun = kommun;
+                $scope.flyttKommun = kommun;
                 $scope.skicka();
             }
             });
@@ -48,27 +47,30 @@ angular.module('skvopenApp', [])
 
     $scope.skicka = function() {
 
-        var hemkommun = $scope.hemkommun;
-        var tillKommun = $scope.tillKommun;
+        var nuvarandekommun = $scope.nuvarandekommun;
+        var flyttKommun = $scope.flyttKommun;
         var lon = $scope.lon;
 
-        skvopenService.beraknaHamburgare(hemkommun, tillKommun, lon, function(response) {
-            $scope.hamburgarePerKommun[tillKommun] = response.data; 
+        skvopenService.beraknaHamburgare(nuvarandekommun, flyttKommun, lon, function(response) {
+            $scope.$apply(function() {
+                console.log(response);
+                $scope.hamburgarePerKommun[flyttKommun] = response.data; 
+            });
         });
     };
 
     $scope.aterstall = function() {
-        $scope.hemkommun = '';
+        $scope.nuvarandekommun = '';
         $scope.hamburgarePerKommun = {};
     }
 })
 
 .factory('skvopenService', function($http, skvopenConfig) {
     return {
-        beraknaHamburgare: function(hemkommun, tillKommun, lon, callback) {
+        beraknaHamburgare: function(nuvarandekommun, flyttKommun, lon, callback) {
 
             var url = skvopenConfig.url;
-            var config = { params: { hemkommun: hemkommun, tillKommun: tillKommun, lon: lon }};
+            var config = { params: { nuvarandekommun: nuvarandekommun.toUpperCase(), flyttKommun: flyttKommun.toUpperCase(), lon: lon }};
 
             $http.get(url, config).then(callback, function() {
                 console.log('fel');
