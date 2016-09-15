@@ -23,11 +23,12 @@ module.exports = {
 		
 		skatt.tot = totskatt;
 		skatt.statlig = statligSkatt;
-		skatt.totManad = totskatt / 12;
 		
 		if (skatt.tot < 0){
 			skatt.tot = 0;
 		}
+		skatt.totManad = totskatt / 12;
+		
 		return skatt;
 	}
 	
