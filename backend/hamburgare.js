@@ -5,13 +5,13 @@ module.exports = function(app) {
     app.get('/omvandla/:kr', function(req, res) {
         //var vara = req.params.vara;
         var kr = req.params.kr;
-        var vara = "sodaburk";
+        //var vara = "sodaburk";
         
         var resObj = {};
         resObj["omvandlat"] = "true";
         resObj.vara = vara;
         resObj.kr = kr;
-        resObj.antalvaror = omvandlaTillVaraHeltal(vara,kr);
+        resObj.antalvaror = skapaFullstandingOmvandling(kr);
         
         res.json(resObj);
     });
