@@ -54,6 +54,12 @@ angular.module('skvopenApp', [])
         skvopenService.beraknaHamburgare(nuvarandekommun, flyttkommun, lon, function(response) {
 
             var hamburgare = response.data.antalvaror.hamburgare.antal;
+            var isBetter = response.data.isBetter;
+
+            if (!isBetter)
+            {
+                hamburgare = '-' + hamburgare;
+            }
 
             $timeout(function() {
                 $scope.hamburgarePerKommun[flyttkommun] = hamburgare; 
