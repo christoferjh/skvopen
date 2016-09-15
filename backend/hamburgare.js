@@ -32,7 +32,7 @@ module.exports = function(app) {
     
     
     
-}
+};
 
 var varoPris = new Map();
 varoPris.set("hamburgare", {"pris":54,"namn": "Hamburgare", "namnPlural" : "Hamburgare"});		

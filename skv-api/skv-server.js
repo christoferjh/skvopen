@@ -9,7 +9,7 @@ var port = prodmodenr + appnr;
 
 
 var dbfuncs = require('./open-data.js');
-var parseJson = require('parse-json');
+var skattemodul = require('./skatteberakning.js');
 
 
 app.use(expressMongoDb('mongodb://localhost/skvdb'));
@@ -67,8 +67,11 @@ app.get('/skv-api/:inkomst,:kommun,:forsamling', function (req, res, next) {
             if(data.length != 1) {
                 //TODO: throw exception
             }else {
-                console.log(data[0].Kommun);
-                res.json(data);
+                console.log(data[0].Kommunalskatt + " " + data[0].Landstingskatt);
+                var skatteprocent = (data[0].Kommunalskatt + data[0].Landstingskatt) / 100;
+
+                resultat = skattemodul.raknaUtSkatt(skatteprocent, inkomst);
+                res.json(resultat);
             }
             
             //consoloe.log(j);
