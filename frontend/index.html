@@ -6,22 +6,22 @@
 
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
+        <style>
+            html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            }
+            #map {
+            height: 100%;
+            }
+        </style>
 
-     <script>
-        function initMap() {
-           angular.element(document.getElementById('skvopenController')).scope().initMap();
-        }
-    </script>
+        <script>
+            function initMap() {
+            angular.element(document.getElementById('skvopenController')).scope().initMap();
+            }
+        </script>
 
     </head>
 
@@ -32,25 +32,33 @@
             <div id="map"></div>
 
             <form>
-                Kommun: <input type="text" ng-model="kommun"/> <br/>
                 Lön: <input type="text" ng-model="lon"/> <br/>
-                <input type="submit" ng-click="skicka(kommun, lon)"/>
+                Hemkommun: <input type="text" placeholder='Ingen kommun vald ännu' ng-model="hemkommun" readonly/> <br/>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Kommun</th>
+                                    <th>Hamburgare</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="(kommun, hamburgare) in hamburgarePerkommun">
+                                    <tr>
+                                        <td>
+                                            {{kommun}}
+                                        </td>
+                                        <td>
+                                            {{hamburgare}}
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <input type="submit" value="Återställ" ng-click="aterstall()"/>
             </form>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Kommun</th>
-                                <th>Hamburgare</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </body>
     </html>
