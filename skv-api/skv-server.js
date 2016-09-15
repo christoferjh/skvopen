@@ -82,6 +82,31 @@ app.get('/skv-api/:inkomst,:kommun,:forsamling', function (req, res, next) {
 });
 
 
+app.get('/skv-api/:inkomst,:kommun', function (req, res, next) {
+    kommun = req.params.kommun;
+    inkomst = req.params.inkomst;
+
+    dbfuncs.query_db(req, res ,"kommunalskatt", {Kommun: kommun}, function(data) {
+            console.log(data);
+            //var j = JSON.parse(data);
+            if(data.length == 0) {
+                res.json();
+            }else {
+                console.log(data[0].Kommunalskatt + " " + data[0].Landstingskatt);
+                var skatteprocent = (data[0].Kommunalskatt + data[0].Landstingskatt) / 100;
+
+                resultat = skattemodul.raknaUtSkatt(skatteprocent, inkomst);
+                res.json(resultat);
+            }
+            
+            //consoloe.log(j);
+            
+
+    });
+
+});
+
+
 
 console.log("Server running at http://127.0.0.1:"+port+"/");
 app.listen(port);
