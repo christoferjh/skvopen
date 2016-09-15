@@ -7,5 +7,16 @@
 		"PRODMODENR": process.env.PRODMODENR,
 		"APPNR": "000"
     }
-  }]
+  },
+  {
+    name        : [process.env.PRODMODE,"-","server"].join(''),
+    script      : "./backend/server.js",
+    watch       : false,
+    env: {
+		"PRODMODENR": process.env.PRODMODENR,
+		"APPNR": "001"
+    }
+  }
+  
+  ]
 }

@@ -6,6 +6,11 @@ module.exports = {
     },
 
 
+	handleQuestion: function(req, res){
+		
+		
+		},
+
     connectToDataBase: function(mongoclient, mongoURI) {
         mongoclient.connect(mongoURI, function(err, db) {
             if(err) { return console.log(err);}
