@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 
-var http = require('http');
 var prodmodenr = process.env.PRODMODENR;
 var prodmode = process.env.PRODMODE;
 var appnr = process.env.APPNR
