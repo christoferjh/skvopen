@@ -38,9 +38,17 @@ angular.module('skvopenApp', [])
             }
             });
 
+
+            var icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+            if ($scope.flyttkommun)
+            {
+                icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+            }
+
             var marker = new google.maps.Marker({
                 position: event.latLng,
-                map: map
+                map: map,
+                icon: icon
             });
 
             markers.push(marker);
