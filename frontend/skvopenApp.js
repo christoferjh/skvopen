@@ -14,7 +14,7 @@ angular.module('skvopenApp', [])
         });
 
         kmlLayer = new google.maps.KmlLayer({
-            url: 'http://chjh.eu/skv/kommuner.kml',
+            url: 'http://chjh.eu/skv/kommuner2.kml',
             suppressInfoWindows: true,
             map: map,
         }); 
