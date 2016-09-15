@@ -3,7 +3,7 @@ angular.module('skvopenApp', [])
 .constant('skvopenConfig', {url: 'http://localhost:21001/livskvalitet'})
 .controller('skvopenController', function($scope, skvopenService, $timeout) {
 
-    var map, kmlLayer;
+    var map, kmlLayer, markers = [];
 
     $scope.nuvarandekommun = '';
     $scope.hamburgarePerKommun = {};
@@ -42,6 +42,8 @@ angular.module('skvopenApp', [])
                 position: event.latLng,
                 map: map
             });
+
+            markers.push(marker);
         });
     };
 
@@ -70,6 +72,10 @@ angular.module('skvopenApp', [])
     $scope.aterstall = function() {
         $scope.nuvarandekommun = '';
         $scope.hamburgarePerKommun = {};
+
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
     }
 })
 
