@@ -22,7 +22,7 @@ module.exports = function(app) {
         
         var resObj = {};
         resObj["omvandlat"] = "true";
-        resObj.vara = vara;
+        resObj.vara = varoPris.get(vara);
         resObj.kr = kr;
         resObj.antalvaror = omvandlaTillVara(vara,kr);
         
@@ -34,25 +34,20 @@ module.exports = function(app) {
     
 }
 
-var varoPrisObj = {
-		"hamburgare" : {"pris":54,"namn":"Hamburgare"}, 
-		"sodaburk" : {"pris": 10,"namn":"Läskburk"}, 
-		"godisnapp" : {"pris": 1, "namn" : "Godisnapp"} 
-		};
 var varoPris = new Map();
-varoPris.set("hamburgare", {"pris":54,"namn":"Hamburgare"});		
-varoPris.set("sodaburk" , {"pris": 10,"namn":"Läskburk"});
-varoPris.set("godisnapp", {"pris": 1, "namn" : "Godisnapp"});
+varoPris.set("hamburgare", {"pris":54,"namn": "Hamburgare", "namnPlural" : "Hamburgare"});		
+varoPris.set("sodaburk" , {"pris": 10,"namn": "Läskburk", "namnPlural" : "Läskburkar"});
+varoPris.set("godisnapp", {"pris": 1, "namn" : "Godisnapp" , "namnPlural" : "Godisnappar" });
 
 function skapaFullstandingOmvandling(kr){
 	var tmpKr = kr;
 	var res = {};
 	for (var [varoNamn, vara] of varoPris) {
-		console.log("vara "+varoNamn);
+		//console.log("vara "+varoNamn);
 		var omvandling = omvandlaTillVaraHeltal(varoNamn, tmpKr);
 		if (omvandling.antalHela>0){
 			tmpKr -= omvandling.kostnad;
-			res[varoNamn] = {"namn" : vara.namn,"antal": omvandling.antalHela , "kostnad" : omvandling.kostnad};
+			res[varoNamn] = {"vara" : vara,"antal": omvandling.antalHela , "kostnad" : omvandling.kostnad};
 			
 		}
 	}
@@ -61,7 +56,7 @@ function skapaFullstandingOmvandling(kr){
 function omvandlaTillVaraHeltal(varonamn, kr){
 	var vara = varoPris.get(varonamn);
 	var antalHela = Math.floor(kr / vara.pris);
-	var kostnad = (antalHela * vara.pris);
+	var kostnad = antalHela * vara.pris;
  	var krKvar = kr - kostnad;
  	return {"krKvar" : krKvar , "kostnad" : kostnad , "antalHela" : antalHela};
 }
