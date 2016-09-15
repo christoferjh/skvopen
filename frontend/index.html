@@ -42,15 +42,23 @@
                                 <tr>
                                     <th>Kommun</th>
                                     <th>Hamburgare</th>
+                                    <th>Läskburkar</th>
+                                    <th>Godisnappar</th>
                                 </tr>
                             </thead>
-                            <tbody ng-repeat="(kommun, hamburgare) in hamburgarePerKommun">
+                            <tbody ng-repeat="(kommun, varor) in varorPerKommun">
                                     <tr>
                                         <td>
                                             {{kommun}}
                                         </td>
                                         <td>
-                                            {{hamburgare}}
+                                            {{varor.hamburgare}}
+                                        </td>
+                                        <td>
+                                            {{varor.sodaburk}}
+                                        </td>
+                                        <td>
+                                            {{varor.godisnapp}}
                                         </td>
                                     </tr>
                             </tbody>

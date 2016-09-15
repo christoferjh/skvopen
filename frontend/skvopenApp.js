@@ -6,7 +6,7 @@ angular.module('skvopenApp', [])
     var map, kmlLayer, markers = [];
 
     $scope.nuvarandekommun = '';
-    $scope.hamburgarePerKommun = {};
+    $scope.varorPerKommun = {};
 
     $scope.initMap = function() {
 
@@ -61,25 +61,55 @@ angular.module('skvopenApp', [])
         var flyttkommun = $scope.flyttkommun;
         var lon = $scope.lon;
 
-        skvopenService.beraknaHamburgare(nuvarandekommun, flyttkommun, lon, function(response) {
+        skvopenService.beraknaVaror(nuvarandekommun, flyttkommun, lon, function(response) {
 
-            var hamburgare = response.data.antalvaror.hamburgare.antal;
+            var hamburgare = response.data.antalvaror.hamburgare;
+            var sodaburk = response.data.antalvaror.sodaburk;
+            var godisnapp = response.data.antalvaror.godisnapp;
             var isBetter = response.data.isBetter;
+
+            if (hamburgare === undefined)
+            {
+                hamburgare = {antal: 0};
+            }
+            if (sodaburk === undefined)
+            {
+                sodaburk = {antal: 0};
+            }
+            if (godisnapp === undefined)
+            {
+                godisnapp = {antal: 0};
+            }
 
             if (!isBetter)
             {
-                hamburgare = '-' + hamburgare;
+                if (hamburgare.antal != 0)
+                {
+                    hamburgare.antal = '-' + hamburgare.antal;
+                }
+                if (sodaburk.antal != 0)
+                {
+                    sodaburk.antal = '-' + sodaburk.antal;
+                }
+                if (godisnapp.antal != 0)
+                {
+                    godisnapp.antal = '-' + godisnapp.antal;
+                }
             }
 
             $timeout(function() {
-                $scope.hamburgarePerKommun[flyttkommun] = hamburgare; 
+                $scope.varorPerKommun[flyttkommun] = {
+                    hamburgare: hamburgare.antal,
+                    sodaburk: sodaburk.antal,
+                    godisnapp: godisnapp.antal 
+                };
             }, 0);
         });
     };
 
     $scope.aterstall = function() {
         $scope.nuvarandekommun = '';
-        $scope.hamburgarePerKommun = {};
+        $scope.varorPerKommun = {};
 
         markers.forEach(function(marker) {
             marker.setMap(null);
@@ -89,7 +119,7 @@ angular.module('skvopenApp', [])
 
 .factory('skvopenService', function($http, skvopenConfig) {
     return {
-        beraknaHamburgare: function(nuvarandekommun, flyttkommun, lon, callback) {
+        beraknaVaror: function(nuvarandekommun, flyttkommun, lon, callback) {
 
             var url = skvopenConfig.url;
             var config = { params: { nuvarandekommun: nuvarandekommun.toUpperCase(), flyttkommun: flyttkommun.toUpperCase(), lon: lon }};
