@@ -1,7 +1,6 @@
-module.exports = function(app, skvopenEndpoint, hamburgareEndpoint) {
+module.exports = function(app, skvopenEndpoint, hamburgaremodulen) {
 
     var unirest = require('unirest');
-    var hamburgarmodulen = require('./hamburgare.js')(app);
     app.get('/livskvalitet', function(req, res) {
         //hämta querystrings från urln
         var flyttkommun = req.query.flyttkommun;

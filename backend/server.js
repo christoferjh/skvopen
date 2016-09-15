@@ -12,11 +12,12 @@ app.use('/node_modules', express.static('node_modules'));
 app.use('/frontend', express.static('frontend'));
 
 require('./routes')(app);
-require('./hamburgare')(app);
+hamburgarmodulen = require('./hamburgare')(app);
+
 
 var skvopenEndpoint = 'http://localhost:23000/skv-api/monad/';
 var hamburgareEndpoint = 'http://localhost:' + port;
-require('./livskvalitet')(app, skvopenEndpoint, hamburgareEndpoint);
+require('./livskvalitet')(app, skvopenEndpoint, hamburgarmodulen);
 
 console.log("Server running at http://127.0.0.1:"+port+"/");
 app.listen(port);
