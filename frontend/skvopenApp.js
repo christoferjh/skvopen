@@ -4,14 +4,29 @@ angular.module('skvopenApp', [])
 
 .controller('skvopenController', function($scope, skvopenService, $q) {
 
-    var map;
+    var map, kmlLayer;
+
 
     $scope.initMap = function() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 63, lng: 17},
           zoom: 4
         });
-      }
+
+        kmlLayer = new google.maps.KmlLayer({
+            url: 'http://chjh.eu/skv/kommuner.kml',
+            suppressInfoWindows: true,
+            map: map,
+        }); 
+
+        kmlLayer.addListener('click', function(event) {
+           var snippet = event.featureData.snippet; 
+           var kommun = snippet.replace(/.*NAMN:\s/, '');
+           $scope.$apply(function() { 
+               $scope.kommun = kommun;
+           });
+        });
+    };
 
     $scope.skicka = function(kommun, lon) {
 
