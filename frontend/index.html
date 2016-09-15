@@ -2,8 +2,18 @@
     <head>
         <script src="bower_components/angular/angular.min.js"></script>
         <script src="frontend/skvopenApp.js"></script>
+        <script src='bower_components/lodash/dist/lodash.min.js'></script>
+        <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyAVk5mXuf260O90PV_Z3whQoMfRUpbxdug'></script>
+        <script src='bower_components/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
+        <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
+
+        <style>
+            .angular-google-map-container { height: 400px; }
+        </style>
     </head>
     <body ng-controller="skvopenController">
+
+        <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
 
         <form>
             Församling: <input type="text" ng-model="forsamling"/> <br/>
@@ -11,6 +21,5 @@
             <input type="submit" ng-click="skicka(forsamling, lon)"/>
         </form>
 
-        {{sum}}
     </body>
 </html>

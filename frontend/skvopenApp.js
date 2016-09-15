@@ -1,10 +1,13 @@
-angular.module('skvopenApp', [])
+angular.module('skvopenApp', ['uiGmapgoogle-maps'])
 
     .constant('skvopenConfig', 
             {url: 'http://asdf'}
     )
 
     .controller('skvopenController', function($scope, skvopenService) {
+
+        $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+
         $scope.skicka = function(forsamling, lon) {
 
             skvopenService.beraknaHamburgare(forsamling, lon, function(response) {
