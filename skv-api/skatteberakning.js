@@ -4,33 +4,33 @@ module.exports = {
 	
 	raknaUtSkatt: function(landstingsskattesats, kommunskattesats, inktax){
 		
-		var grundavdrag = beraknaGrundAvdrag(inktax);
+		var grundavdrag = Math.floor(beraknaGrundAvdrag(inktax));
 		var skatt = {};
 		
 		skatt.grundavdrag = grundavdrag;
 		inktax -= grundavdrag;
 		
 		//var totskatt = inktax * (landstingskattesats+kommunskattesats)/100;
-		skatt.landstingsskatt	= inktax * landstingsskattesats/100 ; 
-		skatt.kommunskatt	= inktax * kommunskattesats/100 ; 
+		skatt.landstingsskatt	= Math.floor(inktax * landstingsskattesats/100) ; 
+		skatt.kommunskatt	= Math.floor(inktax * kommunskattesats/100) ; 
 		
 		var statligSkatt = 0;
 		if (inktax > 616100) { //25% statlig skatt
-			statligSkatt = (inktax - 616100)*0.25;
+			statligSkatt = Math.floor((inktax - 616100)*0.25);
 			
 		}else if (inktax > 430200) { //20% statlig skatt
-			statligSkatt = (inktax - 430200)*0.2;
+			statligSkatt = Math.floor((inktax - 430200)*0.2);
 		}
 		
 		
 		
-		skatt.tot = statligSkatt + skatt.landstingsskatt + skatt.kommunskatt;
+		skatt.tot = Math.floor(statligSkatt + skatt.landstingsskatt + skatt.kommunskatt);
 		skatt.statlig = statligSkatt;
 		
 		if (skatt.tot < 0){
 			skatt.tot = 0;
 		}
-		skatt.totManad = skatt.tot / 12;
+		skatt.totManad = Math.floor(skatt.tot / 12);
 		
 		return skatt;
 	}
