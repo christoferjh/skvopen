@@ -7,30 +7,46 @@ module.exports = function(app) {
         var kr = req.params.kr;
         //var vara = "sodaburk";
         
-        var resObj = {};
-        resObj["omvandlat"] = "true";
-        //resObj.vara = vara;
-        resObj.kr = kr;
-        resObj.antalvaror = skapaFullstandingOmvandling(kr);
+        //var resObj = {};
+        //resObj["omvandlat"] = "true";
+        //resObj.kr = kr;
+        //resObj.antalvaror = skapaFullstandingOmvandling(kr);
         
-        res.json(resObj);
+        res.json(omvandlaKr(kr));
     });
     
     app.get('/:vara/:kr', function(req, res) {
         var vara = req.params.vara;
         var kr = req.params.kr;
         
+        //var resObj = {};
+        //resObj["omvandlat"] = "true";
+        //resObj.vara = varoPris.get(vara);
+        //resObj.kr = kr;
+        //resObj.antalvaror = omvandlaTillVara(vara,kr);
+        
+        res.json(omvandlaVaraKr(vara,kr));
+    }); 
+    var omvandlaKr = function(kr){
+    	//var vara = "sodaburk";
         var resObj = {};
+        resObj["omvandlat"] = "true";
+        //resObj.vara = vara;
+        resObj.kr = kr;
+        resObj.antalvaror = skapaFullstandingOmvandling(kr);
+        return resObj;
+    };
+    
+    var omvandlaVaraKr = function(vara,kr){
+    	var resObj = {};
         resObj["omvandlat"] = "true";
         resObj.vara = varoPris.get(vara);
         resObj.kr = kr;
         resObj.antalvaror = omvandlaTillVara(vara,kr);
-        
-        res.json(resObj);
-    });
+        return resObj;
+    };
     
-    
-    
+    return {omvandlaKr:omvandlaKr, omvandlaVaraKr:omvandlaVaraKr};
     
 };
 
