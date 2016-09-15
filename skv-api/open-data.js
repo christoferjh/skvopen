@@ -1,31 +1,47 @@
 
+getCollection = function(req, collectionName) {
+     console.log("getCollection");
+     db = req.db;
+     var collection = db.collection(collectionName);
+     return collection;
+}
+
 module.exports = {
 
     lol: function() {
-        return "hej";
+        console.log("hejsan");
     },
 
-
-	handleQuestion: function(req, res){
-		
-		
-		},
-
-    connectToDataBase: function(mongoclient, mongoURI) {
-        mongoclient.connect(mongoURI, function(err, db) {
-            if(err) { return console.log(err);}
-            
-            console.log("Connected to DB!");
-            //return mongoclient;
-            return db;   
-        })
-    }
-
+  roundUp: function(tal, next) {
+      var round = Math.floor((tal + 99) / 100) * 100;
+      return next(round);
+  }, 
     
-    getKommunalSkattForKommun : function(mongoclient,kommunNamn) {
-        var kommunalskatt_collection = mongoclient.collection('kommunalskatt');
-        kommunalskatt_collection.find()
+	getTestData: function(req, res,collectionName) {
+       //hämta tabellen
+       collection = getCollection(req, collectionName);
+       //hämta alla data -> spara det i en array
+       collection.find({Kommun: 'BOTKYRKA'}).toArray(function (err, data) {
+            return res.json(data); //skicka datat som json
+        });
+    }, 
 
+    query: function(req, res,collectionName, query) {
+       //hämta tabellen
+       collection = getCollection(req, collectionName);
+       //hämta alla data -> spara det i en array
+       collection.find(query).toArray(function (err, data) {
+            res.json(data); //skicka datat som json
+        });
+    },
+
+    query_db: function(req, res, collectionName, query, next) {
+       //hämta tabellen
+       collection = getCollection(req, collectionName);
+       //hämta alla data -> spara det i en array
+       collection.find(query).toArray(function (err, data) {
+             next(data); //skicka datat
+        });
     }
 
 
