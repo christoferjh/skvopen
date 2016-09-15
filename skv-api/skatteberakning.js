@@ -3,9 +3,10 @@ module.exports = {
 	
 	
 	raknaUtSkatt: function(landstingsskattesats, kommunskattesats, inktax){
-		
-		var grundavdrag = Math.floor(beraknaGrundAvdrag(inktax));
 		var skatt = {};
+		var grundavdrag = Math.floor(beraknaGrundAvdrag(inktax));
+		skatt.jobbskatteavdrag = Math.floor(beraknaJobbskatteAvdrag(inktax,grundavdrag,kommunskattesats/100));
+		
 		
 		skatt.grundavdrag = grundavdrag;
 		inktax -= grundavdrag;
@@ -24,7 +25,7 @@ module.exports = {
 		
 		
 		
-		skatt.tot = Math.floor(statligSkatt + skatt.landstingsskatt + skatt.kommunskatt);
+		skatt.tot = Math.floor(statligSkatt + skatt.landstingsskatt + skatt.kommunskatt - skatt.jobbskatteavdrag);
 		skatt.statlig = statligSkatt;
 		
 		if (skatt.tot < 0){
@@ -39,6 +40,18 @@ module.exports = {
 
 //Prisbaselopp
 var PBB = 44300;
+
+function beraknaJobbskatteAvdrag(inktax, GA, KI){
+	//GA = grundavdrag, KI = Kommunalskatt
+	if (inktax > 7*PBB){
+		return (1.868*PBB - GA) * KI;
+	}else if (inktax > 2.72*PBB){
+		return (1.461*PBB +0.095*(inktax-2.72*PBB) - GA) * KI;
+	}else if (inktax > 0.91*PBB){
+		return (0.91*PBB +0.304*(inktax-0.91*PBB) - GA) * KI;
+	}
+	return (inktax - GA) * KI;
+}
 
 function beraknaGrundAvdrag(inktax){
 	//var inktax = lon * 12;
