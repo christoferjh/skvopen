@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jasmine Spec Runner</title>
+
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" type="text/css" href="node_modules/jasmine-core/lib/jasmine-core/jasmine.css">
+  <script type="text/javascript" src="node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+  <script type="text/javascript" src="node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+  <script type="text/javascript" src="node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="bower_components/angular-mocks/angular-mocks.js"></script>
+
+  <script type="text/javascript" src="frontend/skvopenApp.js"></script>
+
+  <script type="text/javascript" src="test/skvopenAppSpec.js"></script>
+
+  <script type="text/javascript">
+  window.addEventListener("load", function onLoad() {
+    var jasmineEnv = jasmine.getEnv();
+    setTimeout(function () {
+        jasmineEnv.execute();
+    }, 10);
+    window.removeEventListener("load", onLoad, true);
+  }, true);
+  </script>
+
+</head>
+
+<body>
+</body>
+</html>

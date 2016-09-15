@@ -22,7 +22,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-        'test/integration/**/*Spec.js'
+        'test/skvopenAppSpec.js'
     ],
 
 
