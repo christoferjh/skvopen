@@ -1,7 +1,22 @@
 module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 
     var unirest = require('unirest');
-    app.get('/livskvalitet', function(req, res) {
+    app.get('/livskvalitet', livskvalitet(req,res));
+    app.get('/001/livskvalitet', livskvalitet(req,res));
+
+    function querySKVapi(skvopenEndpoint, kommun, lon, next) {
+        endPoint = skvopenEndpoint;
+        endPoint += lon + "/" + kommun;
+        unirest.get(endPoint)
+        .query({kommun: kommun})
+        .query({lon: lon})
+        .end(function(response) {
+                next(response);
+        });
+    }
+}
+
+function livskvalitet(req, res) {
         //hämta querystrings från urln
         var flyttkommun = req.query.flyttkommun;
         var lon = req.query.lon;
@@ -23,21 +38,7 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
                 });
         });
 
-    });
-
-    function querySKVapi(skvopenEndpoint, kommun, lon, next) {
-        endPoint = skvopenEndpoint;
-        endPoint += lon + "/" + kommun;
-        unirest.get(endPoint)
-        .query({kommun: kommun})
-        .query({lon: lon})
-        .end(function(response) {
-                next(response);
-        });
     }
-}
-
-
 
  /* unirest.get(endPoint)
         .query({kommun: kommun})
