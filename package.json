@@ -9,7 +9,8 @@
     "express": "^4.14.0",
     "mongodb": "^2.2.9",
     "mongoose": "^4.6.0",
-    "requirejs": "^2.3.1"
+    "requirejs": "^2.3.1",
+    "unirest": "^0.5.1"
   },
   "devDependencies": {
     "jasmine-core": "^2.5.0",

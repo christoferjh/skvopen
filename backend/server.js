@@ -14,5 +14,9 @@ app.use('/frontend', express.static('frontend'));
 require('./routes')(app);
 require('./hamburgare')(app);
 
+var skvopenEndpoint = 'http://localhost';
+var hamburgareEndpoint = 'http://localhost:' + port;
+require('./livskvalitet')(app, skvopenEndpoint, hamburgareEndpoint);
+
 console.log("Server running at http://127.0.0.1:"+port+"/");
 app.listen(port);

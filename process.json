@@ -16,7 +16,15 @@
 		"PRODMODENR": process.env.PRODMODENR,
 		"APPNR": "001"
     }
+  },
+  {
+    name        : [process.env.PRODMODE,"-","skvserver"].join(''),
+    script      : "./skv-api/skv-server.js",
+    watch       : false,
+    env: {
+		"PRODMODENR": process.env.PRODMODENR,
+		"APPNR": "002"
+    }
   }
-  
   ]
 }
