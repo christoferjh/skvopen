@@ -11,9 +11,15 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
         querySKVapi(skvopenEndpoint, nuvarandekommun, lon, function(responseNuvarande) {
                 querySKVapi(skvopenEndpoint, flyttkommun, lon, function(responseFlytt) {
                         var pengar = responseNuvarande.body.totManad - responseFlytt.body.totManad;
+                        var isBetter = pengar > 0;
+                        if (!isBetter){
+                        	pengar = -pengar;
+                        }
                         //hambugarmodulen.omvandlaKr(pengar);
                         //res.send(responseNuvarande.body);
-                        res.json(hamburgarmodulen.omvandlaKr(pengar));
+                        var retObj = hamburgarmodulen.omvandlaKr(pengar);
+                        retObj.isBetter = isBetter;
+                        res.json(retObj);
                 });
         });
 
