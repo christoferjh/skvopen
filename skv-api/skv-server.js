@@ -30,6 +30,19 @@ app.get('/skv/', function (req, res, next) {
     });
 });
 
+app.get('/skv-api/:inkomst/:kommun', function (req, res, next) {
+	console.log("Hämta skatt från kommun och inkomst år");
+	hamtaBeraknaSkatt(req, res, false);
+});
+app.get('/skv-api/ar/:inkomst/:kommun', function (req, res, next) {
+	console.log("Hämta skatt från kommun och inkomst år");
+	hamtaBeraknaSkatt(req, res, false);
+});
+app.get('/skv-api/monad/:inkomst/:kommun', function (req, res, next) {
+	console.log("Hämta skatt från kommun och inkomst månad");
+	hamtaBeraknaSkatt(req, res, true);
+});
+
 app.get('/skv-api/kommun/:kommun/:forsamling', function (req, res, next) {
     var db = req.db;
     //req.db // => Db object
@@ -82,7 +95,11 @@ app.get('/skv-api/:inkomst/:kommun/:forsamling', function (req, res, next) {
 });
 
 
-app.get('/skv-api/:inkomst/:kommun', function (req, res, next) {
+
+
+
+
+function hamtaBeraknaSkatt(req, res, isManad) {
     var kommun = req.params.kommun;
     var inkomst = req.params.inkomst;
     console.log("Hämta skatt från kommun och inkomst");
@@ -96,7 +113,7 @@ app.get('/skv-api/:inkomst/:kommun', function (req, res, next) {
                 console.log(data[0].Kommunalskatt + " " + data[0].Landstingskatt);
                 //var skatteprocent = (data[0].Kommunalskatt + data[0].Landstingskatt) / 100;
 
-                var resultat = skattemodul.raknaUtSkatt(data[0].Landstingskatt, data[0].Kommunalskatt, inkomst);
+                var resultat = skattemodul.raknaUtSkatt(data[0].Landstingskatt, data[0].Kommunalskatt, inkomst * (isManad?12:1));
                 res.json(resultat);
             }
             
@@ -105,8 +122,7 @@ app.get('/skv-api/:inkomst/:kommun', function (req, res, next) {
 
     });
 
-});
-
+}
 
 
 console.log("Server running at http://127.0.0.1:"+port+"/");
