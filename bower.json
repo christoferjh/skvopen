@@ -15,7 +15,6 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-mocks": "^1.5.8",
-    "angular-google-maps": "^2.3.4",
     "bootstrap": "^3.3.7"
   }
 }

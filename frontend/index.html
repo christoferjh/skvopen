@@ -2,44 +2,54 @@
     <head>
         <script src="bower_components/angular/angular.min.js"></script>
         <script src="frontend/skvopenApp.js"></script>
-        <script src='bower_components/lodash/dist/lodash.min.js'></script>
-        <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyAVk5mXuf260O90PV_Z3whQoMfRUpbxdug'></script>
-        <script src='bower_components/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
-        <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
+        <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyAVk5mXuf260O90PV_Z3whQoMfRUpbxdug&callback=initMap' async defer></script>
 
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
-        <style>
-            .angular-google-map-container { height: 400px; }
-        </style>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+
+     <script>
+        function initMap() {
+           angular.element(document.getElementById('skvopenController')).scope().initMap();
+        }
+    </script>
+
     </head>
 
-    <body ng-controller="skvopenController">
+    <body ng-controller="skvopenController" id="skvopenController">
 
         <div class="container">
-            <div class="span1">
-                <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
 
-                <form>
-                    Kommun: <input type="text" ng-model="kommun"/> <br/>
-                    Lön: <input type="text" ng-model="lon"/> <br/>
-                    <input type="submit" ng-click="skicka(kommun, lon)"/>
-                </form>
+            <div id="map"></div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Kommun</th>
-                                    <th>Hamburgare</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+            <form>
+                Kommun: <input type="text" ng-model="kommun"/> <br/>
+                Lön: <input type="text" ng-model="lon"/> <br/>
+                <input type="submit" ng-click="skicka(kommun, lon)"/>
+            </form>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Kommun</th>
+                                <th>Hamburgare</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </body>

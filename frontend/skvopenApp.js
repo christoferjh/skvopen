@@ -1,31 +1,36 @@
-angular.module('skvopenApp', ['uiGmapgoogle-maps'])
+angular.module('skvopenApp', [])
 
-    .constant('skvopenConfig', 
-            {url: 'http://asdf'}
-    )
+.constant('skvopenConfig', {url: 'http://asdf'})
 
-    .controller('skvopenController', function($scope, skvopenService) {
+.controller('skvopenController', function($scope, skvopenService, $q) {
 
-        $scope.map = { center: { latitude: 63, longitude: 18 }, zoom: 4 };
+    var map;
 
-        $scope.skicka = function(kommun, lon) {
+    $scope.initMap = function() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 63, lng: 17},
+          zoom: 4
+        });
+      }
 
-            skvopenService.beraknaHamburgare(kommun, lon, function(response) {
-                $scope.antalHamburgare = response.data; 
+    $scope.skicka = function(kommun, lon) {
+
+        skvopenService.beraknaHamburgare(kommun, lon, function(response) {
+            $scope.antalHamburgare = response.data; 
+        });
+    };
+})
+
+.factory('skvopenService', function($http, skvopenConfig) {
+    return {
+        beraknaHamburgare: function(kommun, lon, callback) {
+
+            var url = skvopenConfig.url;
+            var config = { params: { kommun: kommun, lon: lon }};
+
+            $http.get(url, config).then(callback, function() {
+                console.log('fel');
             });
-        };
-    })
-
-    .factory('skvopenService', function($http, skvopenConfig) {
-        return {
-            beraknaHamburgare: function(kommun, lon, callback) {
-
-                var url = skvopenConfig.url;
-                var config = { params: { kommun: kommun, lon: lon }};
-
-                $http.get(url, config).then(callback, function() {
-                    console.log('fel');
-                });
-            }
-        };
+        }
+    };
 });
