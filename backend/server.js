@@ -14,7 +14,7 @@ app.use('/frontend', express.static('frontend'));
 require('./routes')(app);
 require('./hamburgare')(app);
 
-var skvopenEndpoint = 'http://localhost';
+var skvopenEndpoint = 'http://localhost:23000/skv-api/monad/';
 var hamburgareEndpoint = 'http://localhost:' + port;
 require('./livskvalitet')(app, skvopenEndpoint, hamburgareEndpoint);
 
