@@ -4,11 +4,11 @@ module.exports = function(app, skvopenEndpoint, hamburgareEndpoint) {
 
     app.get('/livskvalitet', function(req, res) {
 
-        var forsamling = req.params.forsamling;
+        var kommun = req.params.kommun;
         var lon = req.params.lon;
 
         unirest.get(skvopenEndpoint)
-        .query({forsamling: forsamling})
+        .query({kommun: kommun})
         .query({lon: lon})
         .end(function(response) {
 

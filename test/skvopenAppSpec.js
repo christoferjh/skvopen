@@ -13,7 +13,7 @@ describe('skvopenApp', function() {
 
         var scope = {};
         var skvopenService = {
-            beraknaHamburgare : function(forsamling, lon, callback) {
+            beraknaHamburgare : function(kommun, lon, callback) {
                 callback({data: 20});
             }
         };
@@ -22,10 +22,10 @@ describe('skvopenApp', function() {
 
             var controller = $controller('skvopenController', {$scope: scope, skvopenService: skvopenService})
 
-            var forsamling = 'SOLNA, SOLNA';
+            var kommun = 'Botkyrka';
             var lon = 123;
 
-            scope.skicka(forsamling, lon);
+            scope.skicka(kommun, lon);
 
             expect(scope.antalHamburgare).toBe(20);
         });
@@ -46,12 +46,12 @@ describe('skvopenApp', function() {
 
         it('hämtar data', function() {
 
-            var forsamling = 'SOLNA, SOLNA';
+            var kommun = 'Botkyrka';
             var lon = 123;
             var hamburgare;
             $httpBackend.expectGET(/.*/).respond(200, 10);
 
-            service.beraknaHamburgare(forsamling, lon, function(response) {
+            service.beraknaHamburgare(kommun, lon, function(response) {
                 hamburgare = response.data;
             });
 
