@@ -7,19 +7,40 @@
         <script src='bower_components/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
         <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
 
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
         <style>
             .angular-google-map-container { height: 400px; }
         </style>
     </head>
+
     <body ng-controller="skvopenController">
 
-        <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+        <div class="container">
+            <div class="span1">
+                <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
 
-        <form>
-            Församling: <input type="text" ng-model="forsamling"/> <br/>
-            Lön: <input type="text" ng-model="lon"/> <br/>
-            <input type="submit" ng-click="skicka(forsamling, lon)"/>
-        </form>
+                <form>
+                    Kommun: <input type="text" ng-model="kommun"/> <br/>
+                    Lön: <input type="text" ng-model="lon"/> <br/>
+                    <input type="submit" ng-click="skicka(kommun, lon)"/>
+                </form>
 
-    </body>
-</html>
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Kommun</th>
+                                    <th>Hamburgare</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>

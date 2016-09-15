@@ -6,11 +6,11 @@ angular.module('skvopenApp', ['uiGmapgoogle-maps'])
 
     .controller('skvopenController', function($scope, skvopenService) {
 
-        $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+        $scope.map = { center: { latitude: 63, longitude: 18 }, zoom: 4 };
 
-        $scope.skicka = function(forsamling, lon) {
+        $scope.skicka = function(kommun, lon) {
 
-            skvopenService.beraknaHamburgare(forsamling, lon, function(response) {
+            skvopenService.beraknaHamburgare(kommun, lon, function(response) {
                 $scope.antalHamburgare = response.data; 
             });
         };
@@ -18,10 +18,10 @@ angular.module('skvopenApp', ['uiGmapgoogle-maps'])
 
     .factory('skvopenService', function($http, skvopenConfig) {
         return {
-            beraknaHamburgare: function(forsamling, lon, callback) {
+            beraknaHamburgare: function(kommun, lon, callback) {
 
                 var url = skvopenConfig.url;
-                var config = { params: { forsamling: forsamling, lon: lon }};
+                var config = { params: { kommun: kommun, lon: lon }};
 
                 $http.get(url, config).then(callback, function() {
                     console.log('fel');
