@@ -1,7 +1,7 @@
-angular.module('skvopenApp', [])
+angular.module('skvopenApp', ['ngMaterial'])
 
 .constant('skvopenConfig', {url: "/001/livskvalitet"})
-.controller('skvopenController', function($scope, skvopenService, $timeout) {
+.controller('skvopenController', function($scope, skvopenService, $timeout, $mdDialog) {
 
     var map, kmlLayer, markers = [];
 
@@ -114,7 +114,19 @@ angular.module('skvopenApp', [])
         markers.forEach(function(marker) {
             marker.setMap(null);
         });
-    }
+    };
+
+   $scope.fragaOmLon = function(ev) {
+    var confirm = $mdDialog.prompt()
+      .title('Vänligen skriv in din månadslön')
+      .textContent('Lönen används för att beräkna livskvalitet beroende på kommun')
+      .initialValue('25000')
+      .ok('Spara');
+
+    $mdDialog.show(confirm).then(function(result) {
+      $scope.lon = result;
+    }, function() { });
+  }; 
 })
 
 .factory('skvopenService', function($http, skvopenConfig) {

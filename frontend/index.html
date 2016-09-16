@@ -1,10 +1,21 @@
 <html ng-app="skvopenApp">
     <head>
         <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="bower_components/angular-material/angular-material.min.js"></script>
+
         <script src="frontend/skvopenApp.js"></script>
+        <script>
+            function initMap() {
+                angular.element(document.getElementById('skvopenController')).scope().initMap();
+            }
+        </script>
+
         <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyAVk5mXuf260O90PV_Z3whQoMfRUpbxdug&callback=initMap' async defer></script>
 
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="https://material.angularjs.org/latest/angular-material.min.css" rel="stylesheet"/>
 
         <style>
             html, body {
@@ -15,17 +26,14 @@
             #map {
             height: 100%;
             }
-        </style>
 
-        <script>
-            function initMap() {
-            angular.element(document.getElementById('skvopenController')).scope().initMap();
-            }
-        </script>
+        </style>
 
     </head>
 
-    <body ng-controller="skvopenController" id="skvopenController">
+    <body ng-controller="skvopenController" id="skvopenController" data-ng-init="fragaOmLon()">
+
+        <div id="popupContainer" ng-cloak/>
 
         <div class="container">
 
@@ -47,26 +55,26 @@
                                 </tr>
                             </thead>
                             <tbody ng-repeat="(kommun, varor) in varorPerKommun">
-                                    <tr>
-                                        <td>
-                                            {{kommun}}
-                                        </td>
-                                        <td>
-                                            {{varor.hamburgare}}
-                                        </td>
-                                        <td>
-                                            {{varor.sodaburk}}
-                                        </td>
-                                        <td>
-                                            {{varor.godisnapp}}
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        {{kommun}}
+                                    </td>
+                                    <td>
+                                        {{varor.hamburgare}}
+                                    </td>
+                                    <td>
+                                        {{varor.sodaburk}}
+                                    </td>
+                                    <td>
+                                        {{varor.godisnapp}}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+
                 <input type="submit" value="Återställ" ng-click="aterstall()"/>
             </form>
-
         </body>
     </html>
