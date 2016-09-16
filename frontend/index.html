@@ -39,6 +39,9 @@
             .is-worse {
                 color: red;
             }
+            table, th, td {
+    			border: 1px solid black;
+			} 
 
         </style>
 
@@ -80,8 +83,8 @@
 					
                     <div class="col-md-6" id="merInfo">
                     	<table style='border:1'>
-                    	<tr><td></td><td>nuvarande</td><td>flytt</td><td>skillnad</td></tr>
-                    	<tr><td>totalt</td><td>{{nuvarandeskatt.totManad}}</td><td>{{flyttskatt.totManad}}</td><td>{{merInfo.diff_totManad.antalvaror.descr}}</td></tr>
+                    	<tr><td></td><td>{{merInfo.nuvarandeskatt.namn}}</td><td>{{merInfo.flyttskattskatt.namn}}</td><td>skillnad</td></tr>
+                    	<tr><td>totalt</td><td>{{merInfo.nuvarandeskatt.totManad}}</td><td>{{merInfo.flyttskatt.totManad}}</td><td>{{merInfo.diff_totManad.antalvaror.descr}}</td></tr>
                         </table>
                         
                         
