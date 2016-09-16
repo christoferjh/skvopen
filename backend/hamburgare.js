@@ -51,6 +51,7 @@ module.exports = function(app) {
 };
 
 var varoPris = new Map();
+varoPris.set("solresa", {"pris":4000,"namn": "Solresa", "namnPlural" : "Solresor"});
 varoPris.set("hamburgare", {"pris":54,"namn": "Hamburgare", "namnPlural" : "Hamburgare"});		
 varoPris.set("sodaburk" , {"pris": 10,"namn": "Läskburk", "namnPlural" : "Läskburkar"});
 varoPris.set("godisnapp", {"pris": 1, "namn" : "Godisnapp" , "namnPlural" : "Godisnappar" });
@@ -58,15 +59,23 @@ varoPris.set("godisnapp", {"pris": 1, "namn" : "Godisnapp" , "namnPlural" : "God
 function skapaFullstandingOmvandling(kr){
 	var tmpKr = kr;
 	var res = {};
+	var textRes="";
 	for (var [varoNamn, vara] of varoPris) {
 		//console.log("vara "+varoNamn);
 		var omvandling = omvandlaTillVaraHeltal(varoNamn, tmpKr);
 		if (omvandling.antalHela>0){
 			tmpKr -= omvandling.kostnad;
 			res[varoNamn] = {"vara" : vara,"antal": omvandling.antalHela , "kostnad" : omvandling.kostnad};
-			
+			if (omvandling.antalHela===1){
+				 textRes +=" En "+vara.namn+",";
+				
+				}else{
+				 textRes +=" "+omvandling.antalHela+" "+vara.namnPlural+",";
+				
+				}
 		}
 	}
+	res.descr = textRes;
 	return res;
 }		
 function omvandlaTillVaraHeltal(varonamn, kr){
@@ -81,4 +90,4 @@ function omvandlaTillVara(varonamn, kr){
 	return kr/vara.pris;
 }
 
-console.log(skapaFullstandingOmvandling(1234));
+console.log(skapaFullstandingOmvandling(5234));
