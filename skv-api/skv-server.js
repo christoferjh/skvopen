@@ -39,9 +39,10 @@ app.get('/skv-api/ar/:inkomst/:kommun', function (req, res, next) {
 	hamtaBeraknaSkatt(req, res, false);
 });
 
-app.get('/002/skv-api/monad/', function(req, res) {
-    	res.redirect('/skv-api/monad/');
-	});
+app.get('/002/skv-api/monad/:inkomst/:kommun', function (req, res, next) {
+	console.log("Hämta skatt från kommun och inkomst månad");
+	hamtaBeraknaSkatt(req, res, true);
+});
 
 app.get('/skv-api/monad/:inkomst/:kommun', function (req, res, next) {
 	console.log("Hämta skatt från kommun och inkomst månad");
