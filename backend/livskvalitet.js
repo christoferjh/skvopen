@@ -59,8 +59,8 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
         data.diff_Kommunalskatt= retObj;
 
         var diff_Landstingsskatt = Math.abs(nuvarande.body.landstingsskatt - flytt.body.landstingsskatt);
-        retObj = hamburgarmodulen.omvandlaKr(diff_Kommunalskatt/12);
-        data.diff_Kommunalskatt= retObj;
+        retObj = hamburgarmodulen.omvandlaKr(diff_Landstingsskatt/12);
+        data.diff_Landstingsskatt= retObj;
 
         var diff_tot = Math.abs(nuvarande.body.tot - flytt.body.tot);
         retObj = hamburgarmodulen.omvandlaKr(diff_tot);
