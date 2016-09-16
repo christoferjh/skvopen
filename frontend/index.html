@@ -27,13 +27,16 @@
             height: 100%;
             }
 
+            tbody > tr:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
         </style>
 
     </head>
 
     <body ng-controller="skvopenController" id="skvopenController" data-ng-init="fragaOmLon()">
-
-        <div id="popupContainer" ng-cloak/>
 
         <div class="container">
 
@@ -49,13 +52,11 @@
                             <thead>
                                 <tr>
                                     <th>Kommun</th>
-                                    <th>Hamburgare</th>
-                                    <th>Läskburkar</th>
-                                    <th>Godisnappar</th>
+                                    <th>Kvalitetsökning</th>
                                 </tr>
                             </thead>
                             <tbody ng-repeat="(kommun, varor) in varorPerKommun">
-                                <tr>
+                                <tr ng-click="">
                                     <td>
                                         {{kommun}}
                                     </td>
@@ -71,6 +72,10 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+
+                    <div class="col-md-6" id="merInfo">
+                        Välj kommun i tabellen till vänster för att se mer information.
                     </div>
                 </div>
 
