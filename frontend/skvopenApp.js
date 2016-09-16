@@ -63,11 +63,11 @@ angular.module('skvopenApp', ['ngMaterial'])
 
         skvopenService.beraknaVaror(nuvarandekommun, flyttkommun, lon, function(response) {
 
-            console.log(response);
-
             var data = response.data;
 
+
             $timeout(function() {
+                $scope.visaMerInfo(data);
                 $scope.varorPerKommun[flyttkommun] = data;
             }, 0);
         });
