@@ -1,7 +1,6 @@
 module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 
     var unirest = require('unirest');
-    
     app.get('/livskvalitet', function(req, res) {
         //hämta querystrings från urln
         var flyttkommun = req.query.flyttkommun;
@@ -11,44 +10,51 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 
         querySKVapi(skvopenEndpoint, nuvarandekommun, lon, function(responseNuvarande) {
                 querySKVapi(skvopenEndpoint, flyttkommun, lon, function(responseFlytt) {
-                        var pengar = responseNuvarande.body.totManad - responseFlytt.body.totManad;
-                        var isBetter = pengar > 0;
-                        if (!isBetter){
-                        	pengar = -pengar;
-                        }
+                        //var pengar = responseNuvarande.body.totManad - responseFlytt.body.totManad;
+                        //var isBetter = pengar > 0;
+                        //if (!isBetter){
+                        	//pengar = -pengar;
+                        //}
                         //hambugarmodulen.omvandlaKr(pengar);
                         //res.send(responseNuvarande.body);
-                        var retObj = hamburgarmodulen.omvandlaKr(pengar);
-                        retObj.isBetter = isBetter;
+                        //var retObj = hamburgarmodulen.omvandlaKr(pengar);
+                        //retObj.isBetter = isBetter;
+                        retObj = convert(responseFlytt, responseNuvarande);
                         res.json(retObj);
                 });
         });
 
     });
-    
-    app.get('/001/livskvalitet', function(req, res) {
-        //hämta querystrings från urln
-        var flyttkommun = req.query.flyttkommun;
-        var lon = req.query.lon;
-        var nuvarandekommun = req.query.nuvarandekommun;
 
+    //flytt och nuvarande är json objekt
+    function convert(flytt, nuvarande) {
+        var diff_totManad = nuvarande.body.totManad - flytt.body.totManad;
+        var isBetter = diff_totManad > 0;
+        if (!isBetter){
+            diff_totManad = -diff_totManad;
+        }
 
-        querySKVapi(skvopenEndpoint, nuvarandekommun, lon, function(responseNuvarande) {
-                querySKVapi(skvopenEndpoint, flyttkommun, lon, function(responseFlytt) {
-                        var pengar = responseNuvarande.body.totManad - responseFlytt.body.totManad;
-                        var isBetter = pengar > 0;
-                        if (!isBetter){
-                        	pengar = -pengar;
-                        }
-                        //hambugarmodulen.omvandlaKr(pengar);
-                        //res.send(responseNuvarande.body);
-                        var retObj = hamburgarmodulen.omvandlaKr(pengar);
-                        retObj.isBetter = isBetter;
-                        res.json(retObj);
-                });
-        });
+        var data = {};
 
-    });
+        var retObj = hamburgarmodulen.omvandlaKr(diff_totManad);
+        data.diff_totManad=retObj;
+
+        var diff_Kommunalskatt = Math.abs(nuvarande.body.kommunskatt - flytt.body.kommunskatt);
+        retObj = hamburgarmodulen.omvandlaKr(diff_Kommunalskatt/12);
+        data.diff_Kommunalskatt= retObj;
+
+        var diff_Landstingsskatt = Math.abs(nuvarande.body.landstingsskatt - flytt.body.landstingsskatt);
+        retObj = hamburgarmodulen.omvandlaKr(diff_Kommunalskatt/12);
+        data.diff_Kommunalskatt= retObj;
+
+        var diff_tot = Math.abs(nuvarande.body.tot - flytt.body.tot);
+        retObj = hamburgarmodulen.omvandlaKr(diff_tot);
+        data.diff_tot= retObj;
+
+        data.isBetter = isBetter;
+
+        return data;
+    }
 
     function querySKVapi(skvopenEndpoint, kommun, lon, next) {
         endPoint = skvopenEndpoint;
@@ -61,23 +67,6 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
         });
     }
 }
-
-
- /* unirest.get(endPoint)
-        .query({kommun: kommun})
-        .query({lon: lon})
-        .end(function(response) {
-
-            //var kronor = response.kronor;
-            var tot = response.body.tot;
-            console.log(response.body);
-            console.log("tot " + tot);
-            unirest.get(hamburgareEndpoint + '/omvandla/' + tot)
-            .end(function(response) {
-                res.send(response.body);
-            });
-        });*/
-
 
 
 
