@@ -20,15 +20,10 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 
         querySKVapi(skvopenEndpoint, nuvarandekommun, lon, function(responseNuvarande) {
                 querySKVapi(skvopenEndpoint, flyttkommun, lon, function(responseFlytt) {
-                        //var pengar = responseNuvarande.body.totManad - responseFlytt.body.totManad;
-                        //var isBetter = pengar > 0;
-                        //if (!isBetter){
-                        	//pengar = -pengar;
-                        //}
-                        //hambugarmodulen.omvandlaKr(pengar);
-                        //res.send(responseNuvarande.body);
-                        //var retObj = hamburgarmodulen.omvandlaKr(pengar);
-                        //retObj.isBetter = isBetter;
+                        
+                        responseNuvarande.namn = nuvarandekommun;
+                        responseFlytt.namn = flyttkommun;
+
                         retObj = convert(responseFlytt, responseNuvarande);
                         res.json(retObj);
                 });
@@ -49,7 +44,10 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
         var data = {};
 
         data.nuvarandeskatt = nuvarande.body;
+        data.nuvarandeskatt.namn = nuvarande.namn;
+
         data.flyttskatt = flytt.body;
+        data.flyttskatt.namn = flytt.namn;
 
         var retObj = hamburgarmodulen.omvandlaKr(diff_totManad);
         data.diff_totManad=retObj;
