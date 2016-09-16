@@ -1,8 +1,12 @@
 module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 
     var unirest = require('unirest');
-    app.get('/livskvalitet', livskvalitet(req,res));
-    app.get('/001/livskvalitet', livskvalitet(req,res));
+    app.get('/livskvalitet', function(req, res) {
+    	livskvalitet(req,res);
+    });
+    app.get('/001/livskvalitet', function(req, res) {
+    	livskvalitet(req,res);
+	});
 
     function querySKVapi(skvopenEndpoint, kommun, lon, next) {
         endPoint = skvopenEndpoint;
