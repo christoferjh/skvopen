@@ -1,6 +1,9 @@
 module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 
     var unirest = require('unirest');
+    app.get('001/livskvalitet', function(req, res) {
+    	res.redirect('/livskvalitet');
+	});
     app.get('/livskvalitet', function(req, res) {
         //hämta querystrings från urln
         var flyttkommun = req.query.flyttkommun;
