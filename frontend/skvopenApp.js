@@ -1,18 +1,19 @@
 angular.module('skvopenApp', ['ngMaterial'])
 
-.constant('skvopenConfig', {url: "/001/livskvalitet"})
+.constant('skvopenConfig', {url: "/livskvalitet"})
 .controller('skvopenController', function($scope, skvopenService, $timeout, $mdDialog) {
 
     var map, kmlLayer, markers = [];
 
     $scope.nuvarandekommun = '';
     $scope.varorPerKommun = {};
+    $scope.merInfo = 'Välj kommun i tabellen till vänster för att se mer information.';
 
     $scope.initMap = function() {
 
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 63, lng: 17},
-            zoom: 4
+            zoom: 6
         });
 
         kmlLayer = new google.maps.KmlLayer({
@@ -37,7 +38,6 @@ angular.module('skvopenApp', ['ngMaterial'])
                 $scope.skicka();
             }
             });
-
 
             var icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
             if ($scope.flyttkommun)
@@ -95,9 +95,8 @@ angular.module('skvopenApp', ['ngMaterial'])
     }, function() { });
   }; 
 
-   $scope.visaMerInfo = function(info) {
-
-
+   $scope.visaMerInfo = function(data) {
+       $scope.merInfo = data.isBetter;
    };
 })
 
