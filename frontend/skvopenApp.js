@@ -1,6 +1,6 @@
 angular.module('skvopenApp', ['ngMaterial'])
 
-.constant('skvopenConfig', {url: "/livskvalitet"})
+.constant('skvopenConfig', {url: "/001/livskvalitet"})
 .controller('skvopenController', function($scope, skvopenService, $timeout, $mdDialog) {
 
     var map, kmlLayer, markers = [];
