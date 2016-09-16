@@ -39,7 +39,7 @@
             .is-worse {
                 color: red;
             }
-            table, th, td {
+            .mer table, th, td {
     			border: 1px solid black;
 			} 
 
@@ -81,9 +81,9 @@
                         </table>
                     </div>
 					
-                    <div class="col-md-6" id="merInfo">
-                    	<table style='border:1'>
-                    	<tr><td></td><td>{{merInfo.nuvarandeskatt.namn}}</td><td>{{merInfo.flyttskattskatt.namn}}</td><td>skillnad</td></tr>
+                    <div class="col-md-6" id="merInfo" class="mer">
+                    	<table style='border:1'  class="mer">
+                    	<tr><td></td><td>{{merInfo.nuvarandeskatt.namn}}</td><td>{{merInfo.flyttskatt.namn}}</td><td>skillnad</td></tr>
                     	<tr><td>totalt</td><td>{{merInfo.nuvarandeskatt.totManad}}</td><td>{{merInfo.flyttskatt.totManad}}</td><td>{{merInfo.diff_totManad.antalvaror.descr}}</td></tr>
                         </table>
                         
