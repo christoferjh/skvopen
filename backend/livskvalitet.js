@@ -7,8 +7,9 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 	
 	app.get('/skatt', function(req, res) {
 		//Ska resultera skatt
-		
-		});
+	   //var kommun = req.query.kommun;
+
+	});
 	
     app.get('/livskvalitet', function(req, res) {
         //hämta querystrings från urln
@@ -46,6 +47,9 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
         }
 
         var data = {};
+
+        data.nuvarandeskatt = nuvarande.body;
+        data.flyttskatt = flytt.body;
 
         var retObj = hamburgarmodulen.omvandlaKr(diff_totManad);
         data.diff_totManad=retObj;
