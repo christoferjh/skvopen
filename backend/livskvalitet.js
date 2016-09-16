@@ -4,6 +4,12 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
     app.get('/001/livskvalitet', function(req, res) {
     	res.redirect('/livskvalitet');
 	});
+	
+	app.get('/skatt', function(req, res) {
+		//Ska resultera skatt
+		
+		});
+	
     app.get('/livskvalitet', function(req, res) {
         //hämta querystrings från urln
         var flyttkommun = req.query.flyttkommun;
@@ -29,6 +35,8 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 
     });
 
+
+	
     //flytt och nuvarande är json objekt
     function convert(flytt, nuvarande) {
         var diff_totManad = nuvarande.body.totManad - flytt.body.totManad;
