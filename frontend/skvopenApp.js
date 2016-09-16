@@ -110,6 +110,7 @@ angular.module('skvopenApp', ['ngMaterial'])
     $scope.aterstall = function() {
         $scope.nuvarandekommun = '';
         $scope.varorPerKommun = {};
+        $scope.flyttkommun = '';
 
         markers.forEach(function(marker) {
             marker.setMap(null);
