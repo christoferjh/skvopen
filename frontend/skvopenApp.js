@@ -63,46 +63,12 @@ angular.module('skvopenApp', ['ngMaterial'])
 
         skvopenService.beraknaVaror(nuvarandekommun, flyttkommun, lon, function(response) {
 
-            var hamburgare = response.data.antalvaror.hamburgare;
-            var sodaburk = response.data.antalvaror.sodaburk;
-            var godisnapp = response.data.antalvaror.godisnapp;
-            var isBetter = response.data.isBetter;
+            console.log(response);
 
-            if (hamburgare === undefined)
-            {
-                hamburgare = {antal: 0};
-            }
-            if (sodaburk === undefined)
-            {
-                sodaburk = {antal: 0};
-            }
-            if (godisnapp === undefined)
-            {
-                godisnapp = {antal: 0};
-            }
-
-            if (!isBetter)
-            {
-                if (hamburgare.antal != 0)
-                {
-                    hamburgare.antal = '-' + hamburgare.antal;
-                }
-                if (sodaburk.antal != 0)
-                {
-                    sodaburk.antal = '-' + sodaburk.antal;
-                }
-                if (godisnapp.antal != 0)
-                {
-                    godisnapp.antal = '-' + godisnapp.antal;
-                }
-            }
+            var data = response.data;
 
             $timeout(function() {
-                $scope.varorPerKommun[flyttkommun] = {
-                    hamburgare: hamburgare.antal,
-                    sodaburk: sodaburk.antal,
-                    godisnapp: godisnapp.antal 
-                };
+                $scope.varorPerKommun[flyttkommun] = data;
             }, 0);
         });
     };

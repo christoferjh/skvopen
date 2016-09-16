@@ -52,22 +52,20 @@
                             <thead>
                                 <tr>
                                     <th>Kommun</th>
+                                    <th>is better</th>
                                     <th>Kvalitetsökning</th>
                                 </tr>
                             </thead>
-                            <tbody ng-repeat="(kommun, varor) in varorPerKommun">
+                            <tbody ng-repeat="(kommun, data) in varorPerKommun">
                                 <tr ng-click="visaMerInfo('')">
                                     <td>
                                         {{kommun}}
                                     </td>
                                     <td>
-                                        {{varor.hamburgare}}
+                                        {{data.isBetter}}
                                     </td>
                                     <td>
-                                        {{varor.sodaburk}}
-                                    </td>
-                                    <td>
-                                        {{varor.godisnapp}}
+                                        {{data.diff_totManad.descr}}
                                     </td>
                                 </tr>
                             </tbody>
