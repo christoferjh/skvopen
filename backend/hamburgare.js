@@ -15,7 +15,7 @@ module.exports = function(app) {
         res.json(omvandlaKr(kr));
     });
     
-    app.get('/:vara/:kr', function(req, res) {
+    app.get('omvandalEnVara/:vara/:kr', function(req, res) {
         var vara = req.params.vara;
         var kr = req.params.kr;
         
