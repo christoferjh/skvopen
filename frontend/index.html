@@ -84,8 +84,8 @@
                     <div class="col-md-6" id="merInfo" class="mer">
                     	<table style='border:1'  class="mer">
                     	<tr><td></td><td>{{merInfo.nuvarandeskatt.namn}}</td><td>{{merInfo.flyttskatt.namn}}</td><td>skillnad</td></tr>
-                    	<tr><td>Kommunalskatt</td><td>{{merInfo.nuvarandeskatt.totkommunskatt}}</td><td>{{merInfo.flyttskatt.totkommunskatt}}</td><td>{{merInfo.diff_Kommunalskatt.antalvaror.descr}}</td></tr>
-    					<tr><td>Landstingsskatt</td><td>{{merInfo.nuvarandeskatt.landstingsskatt}}</td><td>{{merInfo.flyttskatt.landstingsskatt}}</td><td>{{merInfo.diff_Landstingsskatt.antalvaror.descr}}</td></tr>
+                    	<tr><td>Kommunalskatt</td><td>{{merInfo.nuvarandeskatt.totkommunskatt/12}}</td><td>{{merInfo.flyttskatt.totkommunskatt/12}}</td><td>{{merInfo.diff_Kommunalskatt.antalvaror.descr}}</td></tr>
+    					<tr><td>Landstingsskatt</td><td>{{merInfo.nuvarandeskatt.landstingsskatt/12}}</td><td>{{merInfo.flyttskatt.landstingsskatt/12}}</td><td>{{merInfo.diff_Landstingsskatt.antalvaror.descr}}</td></tr>
                     	
                     	<tr><td>totalt</td><td>{{merInfo.nuvarandeskatt.totManad}}</td><td>{{merInfo.flyttskatt.totManad}}</td><td>{{merInfo.diff_totManad.antalvaror.descr}}</td></tr>
                     	<tr><td>per år</td><td>{{merInfo.nuvarandeskatt.tot}}</td><td>{{merInfo.flyttskatt.tot}}</td><td>{{merInfo.diff_tot.antalvaror.descr}}</td></tr>
