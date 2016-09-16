@@ -105,7 +105,7 @@ angular.module('skvopenApp', ['ngMaterial'])
        html +="<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>";
        html +="</table>";
        html +="<div>";
-       $scope.merInfo = html;
+       $scope.merInfo = data;
    };
 })
 

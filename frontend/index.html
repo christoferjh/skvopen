@@ -77,11 +77,14 @@
                             </tbody>
                         </table>
                     </div>
-					<ANY ng-bind-html="merInfo">
-					</ANY>
+					
                     <div class="col-md-6" id="merInfo">
-                    	
-                        {{merInfo}}
+                    	<table>
+                    	<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                    	<tr><td>{{merInfo.diff_totManad.kr}}</td><td>2</td><td>3</td><td>4</td></tr>
+                        </table>
+                        
+                        
                     </div>
                 </div>
 
