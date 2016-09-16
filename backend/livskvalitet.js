@@ -64,6 +64,14 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
         retObj = hamburgarmodulen.omvandlaKr(diff_tot);
         data.diff_tot= retObj;
 
+        data.nuvarandeskatt.totkommunskatt = Math.floor(data.nuvarandeskatt.totkommunskatt/12);
+        data.nuvarandeskatt.landstingsskatt = Math.floor(data.nuvarandeskatt.landstingsskatt/12);
+        data.nuvarandeskatt.kommunskatt= Math.floor(data.nuvarandeskatt.kommunskatt/12);
+                
+        data.flyttskatt.totkommunskatt = Math.floor(data.flyttskatt.totkommunskatt/12);
+        data.flyttskatt.landstingsskatt = Math.floor(data.flyttskatt.landstingsskatt/12);
+        data.flyttskatt.kommunskatt= Math.floor(data.flyttskatt.kommunskatt/12);
+
         data.isBetter = isBetter;
 
         return data;
