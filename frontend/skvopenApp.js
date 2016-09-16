@@ -128,6 +128,11 @@ angular.module('skvopenApp', ['ngMaterial'])
       $scope.lon = result;
     }, function() { });
   }; 
+
+   $scope.visaMerInfo = function(info) {
+
+
+   };
 })
 
 .factory('skvopenService', function($http, skvopenConfig) {
