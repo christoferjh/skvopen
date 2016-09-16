@@ -39,7 +39,7 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
         var retObj = hamburgarmodulen.omvandlaKr(diff_totManad);
         data.diff_totManad=retObj;
 
-        var diff_Kommunalskatt = Math.abs(nuvarande.body.kommunskatt - flytt.body.kommunskatt);
+        var diff_Kommunalskatt = Math.abs(nuvarande.body.totkommunskatt - flytt.body.totkommunskatt);
         retObj = hamburgarmodulen.omvandlaKr(diff_Kommunalskatt/12);
         data.diff_Kommunalskatt= retObj;
 
