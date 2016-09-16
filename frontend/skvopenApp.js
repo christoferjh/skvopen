@@ -96,7 +96,16 @@ angular.module('skvopenApp', ['ngMaterial'])
   }; 
 
    $scope.visaMerInfo = function(data) {
-       $scope.merInfo = data.isBetter;
+       var html = "<div>";
+       html +="<table>";
+       html +="<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>";
+       html +="<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>";
+       html +="<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>";
+       html +="<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>";
+       html +="<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>";
+       html +="</table>";
+       html +="<div>";
+       $scope.merInfo = data;
    };
 })
 
