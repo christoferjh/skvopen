@@ -14,6 +14,7 @@ module.exports = {
 		//var totskatt = inktax * (landstingskattesats+kommunskattesats)/100;
 		skatt.landstingsskatt	= Math.floor(inktax * landstingsskattesats/100) ; 
 		skatt.kommunskatt	= Math.floor(inktax * kommunskattesats/100) ; 
+		skatt.totkommunskatt = Math.floor(skatt.kommunskatt - skatt.jobbskatteavdrag);
 		
 		var statligSkatt = 0;
 		if (inktax > 616100) { //25% statlig skatt
