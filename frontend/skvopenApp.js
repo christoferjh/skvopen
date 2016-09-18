@@ -7,7 +7,7 @@ angular.module('skvopenApp', ['ngMaterial'])
 
     $scope.nuvarandekommun = '';
     $scope.varorPerKommun = {};
-    $scope.merInfo = 'Välj kommun i tabellen till vänster för att se mer information.';
+    $scope.merInfo = {};
 
     $scope.initMap = function() {
 
@@ -77,6 +77,7 @@ angular.module('skvopenApp', ['ngMaterial'])
         $scope.nuvarandekommun = '';
         $scope.varorPerKommun = {};
         $scope.flyttkommun = '';
+        $scope.merInfo = {};
 
         markers.forEach(function(marker) {
             marker.setMap(null);

@@ -4,8 +4,7 @@
         <script src="bower_components/angular-aria/angular-aria.min.js"></script>
         <script src="bower_components/angular-animate/angular-animate.min.js"></script>
         <script src="bower_components/angular-material/angular-material.min.js"></script>
-        <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAVk5mXuf260O90PV_Z3whQoMfRUpbxdug'></script>
-
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVk5mXuf260O90PV_Z3whQoMfRUpbxdug"></script>
         <script src="frontend/skvopenApp.js"></script>
         <script>
             function initMap() {
@@ -14,22 +13,37 @@
         </script>
 
 
-        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="https://material.angularjs.org/latest/angular-material.min.css" rel="stylesheet"/>
 
         <style>
             html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            }
-            #map {
-            height: 70%;
+                background-color: white;
             }
 
-            tbody > tr:hover {
+            #map {
+                height: 50%;
+                border: 2px solid; 
+                border-radius: 25px; 
+                z-index: 2;
+            }
+
+            .container {
+                margin: 0 auto;
+                width: 90%;
+            }
+
+            .info {
+                float:left;
+                margin-right: 40px;
+            }
+
+            .info tr:hover {
                 cursor: pointer;
-                border-bottom:1pt solid black;
+                font-weight: bold;
+            }
+
+            .mer-info {
+                float:left;
             }
 
             .is-better {
@@ -39,66 +53,106 @@
             .is-worse {
                 color: red;
             }
-            .mer table, th, td {
-    			border: 1px solid black;
-			} 
+
+            input {
+                margin-top: 10px;
+                width: 200px;
+            }
+
+            th {
+                font-weight: bold;
+                text-align: left;
+                padding-right: 20px;  
+            }
+
+            table {
+                border-spacing: 0px 10px;
+            }
+
+            td {
+               padding-right: 20px;  
+               border-bottom: 1px solid black;
+            }
 
         </style>
 
     </head>
 
     <body ng-controller="skvopenController" id="skvopenController" data-ng-init="fragaOmLon()" onload="initMap()">
-
         <div class="container">
 
             <div id="map"></div>
             <br/>
-            <a href="/001/about">Användarmanual</a>
-            <br/>
-            <br/>
-            <form>
-                Lön: <input type="text" ng-model="lon"/> <br/>
-                <br/>
-                Hemkommun: <input type="text" placeholder='Ingen kommun vald ännu' ng-model="nuvarandekommun" readonly/> <br/>
-                <br/>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Kommun</th>
-                                    <th>Kvalitetsändring/månad</th>
-                                </tr>
-                            </thead>
-                            <tbody ng-repeat="(kommun, data) in varorPerKommun">
-                                <tr ng-click="visaMerInfo(data)" ng-class="data.isBetter ? 'is-better' : 'is-worse'">
-                                    <td>
-                                        {{kommun}}
-                                    </td>
-                                    <td>
-                                        {{data.diff_totManad.antalvaror.descr}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-					
-                    <div class="col-md-6" id="merInfo" class="mer">
-                    	<table style='border:1'  class="mer">
-                    	<tr><td></td><td>{{merInfo.nuvarandeskatt.namn}}</td><td>{{merInfo.flyttskatt.namn}}</td><td>skillnad</td></tr>
-                    	<tr><td>Kommunalskatt</td><td>{{merInfo.nuvarandeskatt.totkommunskatt}}</td><td>{{merInfo.flyttskatt.totkommunskatt}}</td><td>{{merInfo.diff_Kommunalskatt.antalvaror.descr}}</td></tr>
-    					<tr><td>Landstingsskatt</td><td>{{merInfo.nuvarandeskatt.landstingsskatt}}</td><td>{{merInfo.flyttskatt.landstingsskatt}}</td><td>{{merInfo.diff_Landstingsskatt.antalvaror.descr}}</td></tr>
-                    	
-                    	<tr><td>totalt</td><td>{{merInfo.nuvarandeskatt.totManad}}</td><td>{{merInfo.flyttskatt.totManad}}</td><td>{{merInfo.diff_totManad.antalvaror.descr}}</td></tr>
-                    	<tr><td>per år</td><td>{{merInfo.nuvarandeskatt.tot}}</td><td>{{merInfo.flyttskatt.tot}}</td><td>{{merInfo.diff_tot.antalvaror.descr}}</td></tr>
-                        </table>
-                        
-                        
-                    </div>
+            <form>
+                <div style="float:left; text-align:center; padding-right: 20px;">
+                    Lön <br/>
+                    <input type="text" placeholder="Ange lön innan skatt" ng-model="lon"/>
                 </div>
 
-                <input type="submit" value="Återställ" ng-click="aterstall()"/>
+                <div style="float:left; text-align:center; padding-right: 20px">
+                    Hemkommun <br/>
+                    <input type="text" placeholder='Ingen kommun vald ännu' ng-model="nuvarandekommun" readonly/>
+                </div>
+
+                <br/>
+
+                <input style="float:left" type="submit" value="Återställ" ng-click="aterstall()"/>
             </form>
-        </body>
-    </html>
+
+            <a style="float:right;" href="/001/about">Användarmanual</a>
+
+            <div style="clear:both; margin-top:40px;"/>
+
+            <table class="info" ng-show="merInfo.nuvarandeskatt != null">
+                <thead>
+                    <tr>
+                        <th>Kommun</th>
+                        <th>Kvalitetsändring/månad</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="(kommun, data) in varorPerKommun" ng-click="visaMerInfo(data)" ng-class="data.isBetter ? 'is-better' : 'is-worse'">
+                        <td>
+                            {{kommun}}
+                        </td>
+                        <td>
+                            {{data.diff_totManad.antalvaror.descr}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="mer-info" ng-show="merInfo.nuvarandeskatt != null">
+                <thead>
+                    <tr>
+                        <th></td>
+                        <th>{{merInfo.nuvarandeskatt.namn}}</th>
+                        <th>{{merInfo.flyttskatt.namn}}</th>
+                        <th>Skillnad</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Kommunalskatt</td>
+                        <td>{{merInfo.nuvarandeskatt.totkommunskatt}}</td><td>{{merInfo.flyttskatt.totkommunskatt}}</td><td>{{merInfo.diff_Kommunalskatt.antalvaror.descr}}</td>
+                    </tr>
+                    <tr>
+                        <td>Landstingsskatt</td>
+                        <td>{{merInfo.nuvarandeskatt.landstingsskatt}}</td><td>{{merInfo.flyttskatt.landstingsskatt}}</td><td>{{merInfo.diff_Landstingsskatt.antalvaror.descr}}</td>
+                    </tr>
+                    <tr>
+                        <td>Totalt</td>
+                        <td>{{merInfo.nuvarandeskatt.totManad}}</td><td>{{merInfo.flyttskatt.totManad}}</td><td>{{merInfo.diff_totManad.antalvaror.descr}}</td>
+                    </tr>
+                    <tr>
+                        <td>Per år</td>
+                        <td>{{merInfo.nuvarandeskatt.tot}}</td><td>{{merInfo.flyttskatt.tot}}</td><td>{{merInfo.diff_tot.antalvaror.descr}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

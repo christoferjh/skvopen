@@ -2,7 +2,7 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 
     var unirest = require('unirest');
     app.get('/001/livskvalitet', function(req, res) {
-    	res.redirect('/livskvalitet');
+        livskvalitet(req, res);
 	});
 	
 	app.get('/skatt', function(req, res) {
@@ -12,6 +12,10 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
 	});
 	
     app.get('/livskvalitet', function(req, res) {
+        livskvalitet(req, res);
+    });
+
+    function livskvalitet(req, res) {
         //hämta querystrings från urln
         var flyttkommun = req.query.flyttkommun;
         var lon = req.query.lon;
@@ -28,8 +32,7 @@ module.exports = function(app, skvopenEndpoint, hamburgarmodulen) {
                         res.json(retObj);
                 });
         });
-
-    });
+    };
 
 
 	
